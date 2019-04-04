@@ -98,7 +98,11 @@ if __name__ == '__main__':
         detector_utils.draw_box_on_image(num_hands_detect, args.score_thresh,
                                          scores, boxes, im_width, im_height,
                                          image_np)
-
+        
+        sizes = detector_utils.get_box_size(num_hands_detect, args.score_thresh,
+                                         scores, boxes, im_width, im_height,
+                                         image_np)
+        print(sizes)
         # Calculate Frames per second (FPS)
         num_frames += 1
         elapsed_time = (datetime.datetime.now() - start_time).total_seconds()

@@ -60,6 +60,16 @@ def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, i
             cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
 
 
+# return x,y for each valid hand pose. support calculation of area
+def get_box_size(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np):
+    ret = []
+    for i in range(num_hands_detect):
+        if (scores[i] > score_thresh):
+            (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
+                                          boxes[i][0] * im_height, boxes[i][2] * im_height)
+            ret.append([right - left, bottom - top])
+    return ret
+
 # Show fps value on image.
 def draw_fps_on_image(fps, image_np):
     cv2.putText(image_np, fps, (20, 50),
